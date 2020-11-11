@@ -11,17 +11,22 @@ public class PlayerMove : MonoBehaviour
     Rigidbody2D rigid;
     SpriteRenderer spriteRenderer;
     Animator anim;
-    CapsuleCollider2D collider;
+    CapsuleCollider2D CapsuleCollider;
+
+
+    public GameManager gameManager;
+
+    public int Score = 0;
 
     public float maxTime = 30;
-
+     
 
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
-        collider = GetComponent<CapsuleCollider2D>();
+        CapsuleCollider = GetComponent<CapsuleCollider2D>();
     }
 
     void Update()// 단발 입력은 업데이트가 좋음
@@ -112,8 +117,28 @@ public class PlayerMove : MonoBehaviour
            
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Item")
+        {
+            Debug.Log("동전");
+            gameManager.stagePoint += 100;
+            collision.gameObject.SetActive(false);
+
+        }
+        else if (collision.gameObject.tag == "flag")
+        {
+            //Next Stage!
+            gameManager.NextStage();
+
+
+        }
+    }
+
     void OnAttack(Transform enemy)
     {
+        //점수
+        gameManager.stagePoint += 100;
 
 
         //플레이어가 밟을 때 살짝 튀는것,\.

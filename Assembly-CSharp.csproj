@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Script\EnemyMove.cs" />
+    <Compile Include="Assets\Script\GameManager.cs" />
     <Compile Include="Assets\Script\GameStartScene.cs" />
     <Compile Include="Assets\Script\PlayerMove.cs" />
     <Compile Include="Assets\Script\Uimanager.cs" />
