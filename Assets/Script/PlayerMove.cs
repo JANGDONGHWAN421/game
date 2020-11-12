@@ -6,28 +6,41 @@ using UnityEngine.WSA;
 
 public class PlayerMove : MonoBehaviour
 {
+    public GameManager gameManager;
+    //오디오 관리
+    public AudioClip audioJump;
+    public AudioClip audioAttack;
+    public AudioClip audioDamaged;
+    public AudioClip audioItem;
+    public AudioClip audioDie;
+    public AudioClip audioFinish;
     public float maxSpeed;
     public float jumpPower;
     Rigidbody2D rigid;
     SpriteRenderer spriteRenderer;
     Animator anim;
     CapsuleCollider2D CapsuleCollider;
+    AudioSource audioSource;
 
 
-    public GameManager gameManager;
+
 
     public int Score = 0;
-
     public float maxTime = 30;
-     
+
+  
 
     void Awake()
     {
+        //뭐든지 사용하기 전에 겟 컴퍼넌트로 초기화값 가져와 초기화하기.
         rigid = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
         CapsuleCollider = GetComponent<CapsuleCollider2D>();
+        audioSource = GetComponent<AudioSource>();
     }
+
+    
 
     void Update()// 단발 입력은 업데이트가 좋음
     {
@@ -37,8 +50,12 @@ public class PlayerMove : MonoBehaviour
         {
             rigid.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
             anim.SetBool("isJumping", true);
-        } 
-           
+            PlaySound("JUMP");
+            audioSource.clip = audioJump;
+            audioSource.Play();
+
+        }
+
 
         if (Input.GetButtonUp("Horizontal"))
         {
@@ -110,9 +127,15 @@ public class PlayerMove : MonoBehaviour
             if (rigid.velocity.y < 0 && transform.position.y > collision.transform.position.y)
             {
                 OnAttack(collision.transform);
+                audioSource.clip = audioAttack;
+                audioSource.Play();
+                //PlaySound("ATTACK");
             }
             else
             OnDamaged(collision.transform.position);
+            audioSource.clip = audioDamaged;
+            audioSource.Play();
+            //PlaySound("DAMAGED");
         }
            
     }
@@ -124,12 +147,20 @@ public class PlayerMove : MonoBehaviour
             Debug.Log("동전");
             gameManager.stagePoint += 100;
             collision.gameObject.SetActive(false);
+            audioSource.clip = audioItem;
+            audioSource.Play();
+
+            //PlaySound("ITEM");
 
         }
-        else if (collision.gameObject.tag == "flag")
+        else if (collision.gameObject.tag == "Flag")
         {
             //Next Stage!
             gameManager.NextStage();
+            audioSource.clip = audioFinish;
+            audioSource.Play();
+
+            //PlaySound("FINISH");
 
 
         }
@@ -139,11 +170,8 @@ public class PlayerMove : MonoBehaviour
     {
         //점수
         gameManager.stagePoint += 100;
-
-
         //플레이어가 밟을 때 살짝 튀는것,\.
         rigid.AddForce(Vector2.up * 5, ForceMode2D.Impulse);
-
         //적의 죽음.
         EnemyMove enemyMove = enemy.GetComponent<EnemyMove>();
         enemyMove.OnDamaged();
@@ -153,16 +181,17 @@ public class PlayerMove : MonoBehaviour
 
     private void OnDamaged(Vector2 targetPos)
     {
+        //목숨깍기
+        gameManager.HealthDown();
+        //반투명 레이어로 바꾸기
         gameObject.layer = 11;
-
+        //반투명 색깔로 바꾸기
         spriteRenderer.color = new Color(1, 1, 1, 0.4f);
-
+        //몬스터에게 피해 입을때 튕기는 것.
        int dirc = transform.position.x - targetPos.x > 0 ? 1 : -1;
        rigid.AddForce(new Vector2(dirc, 1)*7, ForceMode2D.Impulse);
-
        deleteHealth();
        Debug.Log(maxTime);
-
        Invoke("offDamaged", 3);
         
     }
@@ -175,9 +204,54 @@ public class PlayerMove : MonoBehaviour
 
     }
 
+    public void OnDie()
+    {
+        spriteRenderer.color = new Color(1, 1, 1, 0.4f);
+
+        spriteRenderer.flipY = true;
+
+        CapsuleCollider.enabled = false;
+
+        rigid.AddForce(Vector2.up * 5, ForceMode2D.Impulse);
+        audioSource.clip = audioDie;
+        audioSource.Play();
+        //PlaySound("DIE");
+    }
+
     void deleteHealth()
     {
         maxTime--;
     }
 
+    public void VelocityZero()
+    {
+        rigid.velocity = Vector2.zero;
+    }
+
+
+    void PlaySound(string action)
+    {
+        switch (action)
+        {
+            case "JUMP":
+                audioSource.clip = audioJump;
+                break;
+            case "DAMAGED":
+                audioSource.clip = audioDamaged;
+                break;
+            case "ATTACK":
+                audioSource.clip = audioAttack;
+                break;
+            case "DIE":
+                audioSource.clip = audioDie;
+                break;
+            case "FINISH":
+                audioSource.clip = audioFinish;
+                break;
+            case "ITEM":
+                audioSource.clip = audioItem;
+                break;
+        }
+
+    }
 }

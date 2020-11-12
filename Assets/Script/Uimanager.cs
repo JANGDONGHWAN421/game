@@ -28,7 +28,7 @@ public class Uimanager : MonoBehaviour
                 SceneManager.LoadScene("SettingScene");
                 break;
             case "Newgame":
-                SceneManager.LoadScene("NewGameScene");
+                SceneManager.LoadScene("GameScene");
                 break;
             case "Raking":
                 SceneManager.LoadScene("RakingScene");
