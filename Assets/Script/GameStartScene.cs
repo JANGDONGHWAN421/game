@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+
+
+
 public class GameStartScene : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -28,13 +31,5 @@ public class GameStartScene : MonoBehaviour
         
     }
 
-    public void OnClickQuit()
-    {
-       
-        UnityEditor.EditorApplication.isPlaying = false;
-
-        Application.Quit();
-
-        
-    }
+   
 }

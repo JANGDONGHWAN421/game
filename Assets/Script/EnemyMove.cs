@@ -8,7 +8,7 @@ public class EnemyMove : MonoBehaviour
     Animator anim;
     SpriteRenderer spriteRenderer;
     public int nextMove;
-    CapsuleCollider2D collider;
+    CapsuleCollider2D capsulecollider;
 
 
 
@@ -18,7 +18,7 @@ public class EnemyMove : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        collider = GetComponent<CapsuleCollider2D>();
+        capsulecollider = GetComponent<CapsuleCollider2D>();
 
         Think();
 
@@ -79,7 +79,7 @@ public class EnemyMove : MonoBehaviour
 
         spriteRenderer.flipY = true;
 
-        collider.enabled = false;
+        capsulecollider.enabled = false;
 
         rigid.AddForce(Vector2.up * 5, ForceMode2D.Impulse);
 

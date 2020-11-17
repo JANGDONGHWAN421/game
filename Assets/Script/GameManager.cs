@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     public int Health;
     public PlayerMove player;
     public GameObject[] Stages;
+    
 
     //UI관리
     public Image[] UIhealth;
@@ -71,6 +72,8 @@ public class GameManager : MonoBehaviour
         
         else
         {
+            UIhealth[0].color = new Color(1, 0, 0, 0.2f);
+
             player.OnDie();
 
             UIRestartBtn.SetActive(true);
@@ -108,6 +111,12 @@ public class GameManager : MonoBehaviour
 
     public void Restart()
     {
-        SceneManager.LoadScene(2);
+        Time.timeScale = 1;
+        SceneManager.LoadScene("GameScene");
     }
+
+
+    
+        
+    
 }

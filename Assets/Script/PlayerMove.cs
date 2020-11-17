@@ -1,8 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.UIElements;
 using UnityEngine;
-using UnityEngine.WSA;
 
 public class PlayerMove : MonoBehaviour
 {
@@ -46,7 +44,7 @@ public class PlayerMove : MonoBehaviour
     {
 
         //점프
-        if (Input.GetButtonDown("Jump") && !anim.GetBool("isJumping"))
+        if (Input.GetKeyDown(KeyCode.Space) && !anim.GetBool("isJumping"))
         {
             rigid.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
             anim.SetBool("isJumping", true);
