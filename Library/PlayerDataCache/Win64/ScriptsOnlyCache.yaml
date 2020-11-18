@@ -9,7 +9,6 @@ ScriptsOnlyBuild:
     Unity.2D.Animation.Editor.dll:
     - UnityEditor.U2D.Animation.BoneGizmo
     Unity.2D.Tilemap.Editor.dll:
-    - UnityEditor.Tilemaps.GridBrush
     - UnityEditor.Tilemaps.GridPaintingState
     - UnityEditor.Tilemaps.GridPaletteBrushes
     - UnityEditor.Tilemaps.GridPalettes
@@ -604,7 +603,7 @@ ScriptsOnlyBuild:
     className: TextMeshProUGUI
   - hash:
       serializedVersion: 2
-      Hash: faa16694181a8e9ffa8d4f60deb39d80
+      Hash: 8cc15a0bb78e236e06d11e25e2ca4cc2
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: GameManager
@@ -739,4 +738,4 @@ ScriptsOnlyBuild:
   - Assets/Scenes/SampleScene.unity
   - Assets/Scenes/MainMenuScene.unity
   - Assets/Scenes/GameScene.unity
-  playerPath: C:/Users/user/Desktop/exe_2/New Unity Project.exe
+  playerPath: C:/Users/user/Desktop/exe_3/New Unity Project.exe

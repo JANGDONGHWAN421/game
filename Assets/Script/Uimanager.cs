@@ -70,7 +70,8 @@ public void PauseGame(string b)
                 isPause = true;
                 PauseMenu.SetActive(true);
                 Debug.Log("PauseGame가 클릭 되었습니다.");
-               
+                
+                
                 break; 
         }
 
@@ -78,9 +79,41 @@ public void PauseGame(string b)
 
 public void ReturnGame()
     {
+       
                 Time.timeScale = 1;
                 isPause = false;
                 PauseMenu.SetActive(false);
                 Debug.Log("return 클릭 되었습니다.");
     }
+    /*
+    public void Left(string L)
+    {
+        switch (L)
+        {
+            case "L":
+                Event.KeyboardEvent(KeyCode.LeftArrow.ToString());
+                Debug.Log("LeftArrow key is pressed.");
+                break;
+        }
+       
+            
+    }
+    public void Right(string R)
+    {
+        switch (R)
+        {
+            case "R":
+                Event.KeyboardEvent(KeyCode.RightArrow.ToString());
+                Debug.Log("LeftArrow key is pressed.");
+                break;
+        }
+        
+    }
+    public void Jump()
+    {
+
+        
+        Debug.Log("Jump key is pressed.");
+
+    }*/
 }

@@ -14,15 +14,17 @@ public class GameManager : MonoBehaviour
     public int Health;
     public PlayerMove player;
     public GameObject[] Stages;
-    
+    public string btnchange;
 
     //UI관리
     public Image[] UIhealth;
     public Text UIPoint;
     public Text UIStage;
     public GameObject UIRestartBtn;
-
    
+
+
+
 
 
     void Update()
@@ -54,6 +56,7 @@ public class GameManager : MonoBehaviour
             // 다시 시작하기 위한 것 다만 클리어랑 리트라이 다시 확인 하기 위해!
             Text btnText = UIRestartBtn.GetComponentInChildren<Text>();
             btnText.text = "Game Clear!";
+            btnchange = btnText.text;
             UIRestartBtn.SetActive(true);
         }
 
@@ -111,8 +114,18 @@ public class GameManager : MonoBehaviour
 
     public void Restart()
     {
-        Time.timeScale = 1;
-        SceneManager.LoadScene("GameScene");
+        if (btnchange == "Game Clear!")
+        {
+            Time.timeScale = 0;
+            SceneManager.LoadScene("MainMenuScene");
+        }
+
+        else
+        {
+            Time.timeScale = 1;
+            SceneManager.LoadScene("GameScene");
+        }
+        
     }
 
 
